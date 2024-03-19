@@ -1,40 +1,46 @@
-import { useState,useEffect  } from "react";
+import { useState, useEffect } from "react";
 import ChildComponent from "./ChildComponent";
 
-const CodeChallenges = () => {
-  //Esto es del reto 1
-  const [isVisible, setIsVisible] = useState(true);
-  const lasnameTeam = "Fallas_Arauz";
+interface Animal {
+  name: string;
+  id: number;
+}
 
-  //Esto es del reto 2
-  const animals = [
+interface Product {
+  title: string;
+  description: string;
+  price: number;
+  rating: number;
+}
+
+const CodeChallenges = () => {
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const lastNameTeam: string = "Fallas_Arauz";
+
+  const animals: Animal[] = [
     { name: "Tiger", id: 1 },
     { name: "Lion", id: 2 },
     { name: "Python", id: 3 },
   ];
 
-  //Esto es del reto 3
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
 
-  //Esto es del reto 4
-  const [value, setValue] = useState("");
-  const handleChange = (event) => {
+  const [value, setValue] = useState<string>("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
-  //Esto es del reto 5
-  const [text, setText] = useState("Texto to change");
+  const [text, setText] = useState<string>("Texto to change");
   const updateText = () => {
     setText("¡Text updated!");
   };
 
-  //Esto es del reto 6
+  const [data, setData] = useState<Product | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,7 +50,7 @@ const CodeChallenges = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
-        const jsonData = await response.json();
+        const jsonData: Product = await response.json();
         setData(jsonData);
       } catch (error) {
         setError(error.message);
@@ -105,7 +111,7 @@ const CodeChallenges = () => {
       </div>
       <div className="flex justify-center items-center h-screen ">
         <h2 className="text-4xl">
-          {lasnameTeam}
+          {lastNameTeam}
           <span>.jsx</span>
         </h2>
       </div>
